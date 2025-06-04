@@ -211,7 +211,7 @@ public class UserController {
             return "redirect:/login";
         }
 
-        OrderItemsDAO cartItem = new OrderItemsDAO();
+        OrderItems cartItem = new OrderItems();
         cartItem.setUserId(loggedInUser.getId());
         cartItem.setShoesId(shoeId);
         cartItem.setShoesSize(size);
@@ -228,7 +228,7 @@ public class UserController {
             return "redirect:/login";
         }
 
-        List<OrderItemsDAO> orderItems = orderItemsDAO.getWithShoesByUserId(loggedInUser.getId());
+        List<OrderItems> orderItems = orderItemsDAO.getWithShoesByUserId(loggedInUser.getId());
         model.addAttribute("orderItems", orderItems);
         return "cart";
     }
