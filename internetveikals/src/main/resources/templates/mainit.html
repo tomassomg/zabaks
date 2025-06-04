@@ -144,14 +144,12 @@
             </div>
             <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav">
-                    <li class="font"><a th:href="@{/}">Home</a></li>
-                    <li class="font"><a th:href="@{/men}">Men</a></li>
-                    <li class="font"><a th:href="@{/women}">Women</a></li>
-                    <li class="font"><a th:href="@{/kids}">Kids</a></li>
-                    <li class="font"><a th:href="@{/par/mums}">Par mums</a></li>
+                    <li class="active" style="font-family: Arial Black; font-size: 19px;"><a th:href="@{/admin}">Izvadīt visas kurpes</a></li>
+                    <li class="font"><a th:href="@{/izveidot}">Izveidot</a></li>
+                    <li class="font"><a th:href="@{/rediget}">Rediģēt</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li class="active" th:if="${session.loggedInUser != null}" style="font-family: Arial Black; font-size: 19px;">
+                    <li class="font" th:if="${session.loggedInUser != null}">
                         <a th:href="@{/login}"><span class="glyphicon glyphicon-user"></span>
                            Sveicināts, <span th:text="${session.loggedInUser.username}">Lietotājs</span>
                         </a>
@@ -165,41 +163,26 @@
         </div>
     </nav>
 
-    <div class="container">
-        <div class="user-info" th:if="${session.loggedInUser != null}">
-            <h2 class="font" style="font-size: 33px; text-align: left; margin-left: 30px; margin-top: -30px;">Lietotāja informācija</h2>
-            <p class="font" style="font-size: 20px; text-align: left; margin-left: 30px;"><strong>Lietotājvārds:</strong> <span class="font" style="font-size: 28px; text-align: left; margin-left: 30px; color: #0f7abf;" th:text="${session.loggedInUser.username}"></span></p>
-            <p class="font" style="font-size: 20px; text-align: left; margin-left: 30px;"><strong>E-pasts:</strong> <span class="font" style="font-size: 28px; text-align: left; margin-left: 30px; color: #0f7abf;" th:text="${session.loggedInUser.email}"></span></p>
-            <p class="font" style="font-size: 20px; text-align: left; margin-left: 30px;"><strong>Bilance:</strong> <span class="font" style="font-size: 28px; text-align: left; margin-left: 30px; color: #0f7abf;" th:text="${session.loggedInUser.balance + '€'}"></span></p>
-            <a th:href="@{/logout}">
-                <button type="button" class="poga" style="margin-bottom: 30px;">Izrakstīties</button>
-            </a>
-        </div>
-        
-        <div th:if="${session.loggedInUser == null}">
-            <h2 class="font" style="font-size: 33px; text-align: left; margin-left: 30px; margin-top: -20px;">Pieteikšanās</h2>
-            <div th:if="${error}" style="color: red;">
-                <p class="font" th:text="${error}" style="font-size: 19px; margin-left: 30px;"></p>
-            </div>
-            <form th:action="@{/login}" th:object="${user}" method="post" autocomplete="off">
-              <div class="input-group" style="margin-left: -50px;">
-                <input style="width: 400px;" type="text" th:field="*{username}" id="username" placeholder=" " required />
-                <label for="username">Username</label>
-              </div>
-              <div class="input-group" style="margin-left: -50px;">
-                <input style="width: 400px;" type="password" th:field="*{password}" id="password" placeholder=" " required />
-                <label for="password">Password</label>
-              </div>
-			  <div class="centered">
-				<button type="submit" class="poga" style="margin-left: 65px;">Pieteikties</button>
-			  </div>
-            </form>
-            <br/>
-			<div style="text-align: center; margin-top: 30px; margin-bottom: 40px; margin-left: -10px;">
-				  <a class="poga" style="user-select: none; -webkit-user-drag: none;" th:href="@{/register}">Izveidot profilu</a>
-			</div>
-        </div>
-    </div>
+	<div class="container">	
+	    <h2 class="font" style="font-size: 35px; margin-top: -15px; padding-bottom: 15px;">Visas kurpes</h2>
+	    <div th:each="shoe, iterStat : ${shoesList}">
+	        <div th:if="${iterStat.index % 3 == 0}" class="row"></div>
+	        <div class="col-sm-4">
+				<a th:href="@{/rediget/{id}(id=${shoe.id})}">
+	                <img th:src="@{'/images/' + ${shoe.url} + '.png'}" class="img-responsive" alt="Image">
+	            </a>
+	            <div class="panel panel-primary">
+	                <div class="panel-heading" th:text="${shoe.name}" style="font-family: Arial Black; font-size: 20px;">Nosaukums</div>
+	                <div class="panel-footer" th:text="${shoe.brand}" style="font-family: Arial Black; font-size: 14px;">Brand</div>
+	                <div class="panel-footer" th:text="${shoe.price} + ' €'" style="font-family: Arial Black; font-size: 28px; font-style: italic; color: #0f7abf;">Price</div>
+	                <div class="panel-footer" th:text="${shoe.gender}" style="font-family: Arial Black; font-size: 18px; color: #353534;">Gender</div>
+	                <div class="panel-footer" th:text="'Available sizes: ' +  ${shoe.sizes}" style="font-family: Arial Black; font-size: 15px; font-style: italic; color: #353534;">Sizes</div>
+	                <div class="panel-footer" th:text="${shoe.color}" style="font-family: Arial Black; font-size: 18px; font-style: italic; color: #353534;">Color</div>
+	            </div>
+	        </div>
+	        <div th:if="${iterStat.index % 3 == 2 || iterStat.last}"></div>
+	    </div>
+	</div>
 
 
 	<footer class="container-fluid text-center">

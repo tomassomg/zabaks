@@ -3,9 +3,9 @@ package jtt.locmelis.queries;
 public interface ShoesQueries {
     String TABLE = "shoes";
 
-    String QUERY_INSERT = "INSERT INTO " + TABLE + " (name, brand, price, gender, sizes, color) " + "VALUES (?, ?, ?, ?, ?, ?)";
+    String QUERY_INSERT = "INSERT INTO " + TABLE + " (name, brand, price, gender, sizes, color, url) " + "VALUES (?, ?, ?, ?, ?, ?, ?)";
 
-    String QUERY_UPDATE = "UPDATE " + TABLE + " SET name = ?, brand = ?, price = ?, gender = ?, sizes = ?, color = ? " + "WHERE id = ?";
+    String QUERY_UPDATE = "UPDATE " + TABLE + " SET name = ?, brand = ?, price = ?, gender = ?, sizes = ?, color = ?, url = ?" + "WHERE id = ?";
 
     String QUERY_DELETE = "DELETE FROM " + TABLE + " WHERE id = ?";
 

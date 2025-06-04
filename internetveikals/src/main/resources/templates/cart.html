@@ -151,12 +151,12 @@
                     <li class="font"><a th:href="@{/par/mums}">Par mums</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li class="active" th:if="${session.loggedInUser != null}" style="font-family: Arial Black; font-size: 19px;">
+                    <li class="font" th:if="${session.loggedInUser != null}">
                         <a th:href="@{/login}"><span class="glyphicon glyphicon-user"></span>
                            Sveicināts, <span th:text="${session.loggedInUser.username}">Lietotājs</span>
                         </a>
                     </li>
-                    <li class="font" th:if="${session.loggedInUser == null}">
+                    <li class="active" style="font-family: Arial Black; font-size: 19px;" th:if="${session.loggedInUser == null}">
                         <a th:href="@{/login}"><span class="glyphicon glyphicon-user"></span> Login</a>
                     </li>
                     <li class="font"><a th:href="@{/cart}"><span class="glyphicon glyphicon-shopping-cart"></span> Grozs</a></li>
@@ -165,48 +165,32 @@
         </div>
     </nav>
 
-    <div class="container">
-        <div class="user-info" th:if="${session.loggedInUser != null}">
-            <h2 class="font" style="font-size: 33px; text-align: left; margin-left: 30px; margin-top: -30px;">Lietotāja informācija</h2>
-            <p class="font" style="font-size: 20px; text-align: left; margin-left: 30px;"><strong>Lietotājvārds:</strong> <span class="font" style="font-size: 28px; text-align: left; margin-left: 30px; color: #0f7abf;" th:text="${session.loggedInUser.username}"></span></p>
-            <p class="font" style="font-size: 20px; text-align: left; margin-left: 30px;"><strong>E-pasts:</strong> <span class="font" style="font-size: 28px; text-align: left; margin-left: 30px; color: #0f7abf;" th:text="${session.loggedInUser.email}"></span></p>
-            <p class="font" style="font-size: 20px; text-align: left; margin-left: 30px;"><strong>Bilance:</strong> <span class="font" style="font-size: 28px; text-align: left; margin-left: 30px; color: #0f7abf;" th:text="${session.loggedInUser.balance + '€'}"></span></p>
-            <a th:href="@{/logout}">
-                <button type="button" class="poga" style="margin-bottom: 30px;">Izrakstīties</button>
-            </a>
-        </div>
-        
-        <div th:if="${session.loggedInUser == null}">
-            <h2 class="font" style="font-size: 33px; text-align: left; margin-left: 30px; margin-top: -20px;">Pieteikšanās</h2>
-            <div th:if="${error}" style="color: red;">
-                <p class="font" th:text="${error}" style="font-size: 19px; margin-left: 30px;"></p>
-            </div>
-            <form th:action="@{/login}" th:object="${user}" method="post" autocomplete="off">
-              <div class="input-group" style="margin-left: -50px;">
-                <input style="width: 400px;" type="text" th:field="*{username}" id="username" placeholder=" " required />
-                <label for="username">Username</label>
-              </div>
-              <div class="input-group" style="margin-left: -50px;">
-                <input style="width: 400px;" type="password" th:field="*{password}" id="password" placeholder=" " required />
-                <label for="password">Password</label>
-              </div>
-			  <div class="centered">
-				<button type="submit" class="poga" style="margin-left: 65px;">Pieteikties</button>
-			  </div>
-            </form>
-            <br/>
-			<div style="text-align: center; margin-top: 30px; margin-bottom: 40px; margin-left: -10px;">
-				  <a class="poga" style="user-select: none; -webkit-user-drag: none;" th:href="@{/register}">Izveidot profilu</a>
-			</div>
-        </div>
-    </div>
+	
+	<div class="container" style="margin-top: 40px;">
+	    <h2 style="margin-bottom: 30px; font-size: 40px;" class="font">Tavs pasūtījums</h2>
+
+	    <div th:if="${orderItems.isEmpty()}">
+	        <p style="font-size: 20px;">Tev vēl nav neviena pasūtījuma.</p>
+	    </div>
+
+	    <div th:each="item : ${orderItems}" style="display: flex; align-items: center; margin-bottom: 30px; border: 1px solid #ddd; padding: 20px; border-radius: 10px;">
+	        <img th:src="@{'/images/' + ${item.shoe.url} + '.png'}" alt="Kurpes" style="width: 150px; height: auto; margin-right: 30px;">
+	        <div>
+	            <p><strong  class="font">Nosaukums:</strong> <span class="font" style="font-size: 22px; color: #0f7abf" th:text="${item.shoe.name}"></span></p>
+	            <p><strong  class="font">Krāsa:</strong> <span th:text="${item.shoe.color}"></span></p>
+	            <p><strong  class="font">Izmērs:</strong> <span th:text="${item.shoesSize}"></span></p>
+	            <p><strong>Cena:</strong> <span th:text="${item.shoe.price} + ' €'"></span></p>
+	        </div>
+	    </div>
+	</div>
 
 
-	<footer class="container-fluid text-center">
-	    <form class="form-inline">Jautājumi:
-	        <input type="email" class="form-control" size="50" placeholder="Jautājums" style="margin-left: 10px;">
-	        <button class="poga" style="width: 80px; height: 40px; margin-left: 10px;">Sūtīt</button>
-	    </form>
-	</footer>
+<footer class="container-fluid text-center">
+    <form class="form-inline">Jautājumi:
+        <input type="email" class="form-control" size="50" placeholder="Jautājums" style="margin-left: 10px;">
+        <button class="btn btn-dark" style="margin-left: 10px;">Sūtīt</button>
+    </form>
+</footer>
+
 </body>
 </html>

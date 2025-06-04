@@ -1,14 +1,13 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Zābaks – Reģistrācija</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <meta charset="UTF-8" />
+    <title>Zābaks – Izveidot jaunas kurpes</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <style>
-        /* Izmanto to pašu stilu kā dots piemērā */
         .navbar {
             margin-bottom: 50px;
             border-radius: 0;
@@ -92,21 +91,16 @@
         <div class="container-fluid">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
                 </button>
                 <a class="navbar-brand" th:href="@{/}">
-                    <img src="/images/mini-logo.png" alt="Logo" style="height: 50px; width: 70p; margin-top: -15px; user-select: none; -webkit-user-drag: none;">
+                    <img src="/images/mini-logo.png" alt="Logo" style="height: 50px; width: 70p; margin-top: -15px; user-select: none; -webkit-user-drag: none;" />
                 </a>
             </div>
             <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav">
-                    <li class="font"><a th:href="@{/}">Home</a></li>
-                    <li class="font"><a th:href="@{/men}">Men</a></li>
-                    <li class="font"><a th:href="@{/women}">Women</a></li>
-                    <li class="font"><a th:href="@{/kids}">Kids</a></li>
-                    <li class="font"><a th:href="@{/par/mums}">Par mums</a></li>
+					<li class="font"><a th:href="@{/admin}">Izvadīt visas kurpes</a></li>
+					<li class="active" style="font-family: Arial Black; font-size: 19px;"><a th:href="@{/izveidot}">Izveidot</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li class="font"><a th:href="@{/login}"><span class="glyphicon glyphicon-user"></span> Login</a></li>
@@ -117,33 +111,45 @@
     </nav>
 
     <div class="container">
-        <h2 class="font" style="font-size: 33px; text-align: center; margin-bottom: 30px;">Reģistrēties</h2>
+        <h2 class="font" style="font-size: 33px; text-align: center; margin-bottom: 30px;">Izveidot jaunas kurpes</h2>
 
-		<form th:action="@{/register}" th:object="${user}" method="post" autocomplete="off">
-		    <div class="input-group">
-		        <input style="width: 400px;" type="text" th:field="*{username}" id="username" placeholder=" " required />
-		        <label for="username">Lietotājvārds</label>
-		    </div>
-		    <div class="input-group">
-		        <input style="width: 400px;" type="password" th:field="*{password}" id="password" placeholder=" " required />
-		        <label for="password">Parole</label>
-		    </div>
-		    <div class="input-group">
-		        <input style="width: 400px;" type="email" th:field="*{email}" id="email" placeholder=" " required />
-		        <label for="email">E-pasts</label>
-		    </div>
-		    <div class="input-group">
-		        <input style="width: 400px;" type="number" step="0.01" th:field="*{balance}" id="balance" placeholder=" " required />
-		        <label for="balance">Bilance (€)</label>
-		    </div>
+        <form th:action="@{/shoes/create}" th:object="${shoes}" method="post" autocomplete="off">
+            <div class="input-group">
+                <input style="width: 400px;" type="text" th:field="*{name}" id="name" placeholder=" " required />
+                <label for="name">Nosaukums</label>
+            </div>
+            <div class="input-group">
+                <input style="width: 400px;" type="text" th:field="*{brand}" id="brand" placeholder=" " required />
+                <label for="brand">Zīmols</label>
+            </div>
+            <div class="input-group">
+                <input style="width: 400px;" type="number" step="0.01" th:field="*{price}" id="price" placeholder=" " required />
+                <label for="price">Cena (€)</label>
+            </div>
+            <div class="input-group">
+                <input style="width: 400px;" type="text" th:field="*{gender}" id="gender" placeholder=" " required />
+                <label for="gender">Dzimums</label>
+            </div>
+            <div class="input-group">
+                <input style="width: 400px;" type="text" th:field="*{sizes}" id="sizes" placeholder=" " required />
+                <label for="sizes">Izmēri</label>
+            </div>
+            <div class="input-group">
+                <input style="width: 400px;" type="text" th:field="*{color}" id="color" placeholder=" " required />
+                <label for="color">Krāsa</label>
+            </div>
+            <div class="input-group">
+                <input style="width: 400px;" type="text" th:field="*{url}" id="url" placeholder=" " required />
+                <label for="url">Attēla URL</label>
+            </div>
 
-		    <button type="submit" class="poga">Reģistrēties</button>
-		</form>
+            <button type="submit" class="poga">Izveidot</button>
+        </form>
     </div>
 
     <footer class="container-fluid text-center" style="margin-top: 50px;">
         <form class="form-inline">Jautājumi:
-            <input type="email" class="form-control" size="50" placeholder="Jautājums" style="margin-left: 10px;">
+            <input type="email" class="form-control" size="50" placeholder="Jautājums" style="margin-left: 10px;" />
             <button class="poga" style="width: 80px; height: 40px; margin-left: 10px;">Sūtīt</button>
         </form>
     </footer>

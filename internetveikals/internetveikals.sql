@@ -1,8 +1,7 @@
--- Izveido datubāzi
 CREATE DATABASE IF NOT EXISTS Internetveikals;
 USE Internetveikals;
 
--- Lietotāji
+-- Users
 CREATE TABLE users (
     id INT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(50) NOT NULL UNIQUE,
@@ -12,44 +11,35 @@ CREATE TABLE users (
     balance DOUBLE DEFAULT 0
 );
 
--- Apavi (shoes)
+-- Shoes
 CREATE TABLE shoes (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(100),
     brand VARCHAR(100),
     price DOUBLE,
     gender VARCHAR(20),
-    sizes TEXT, -- izmēri kā komatiem atdalīts teksts, piemēram: "37.5,38,39"
-    color VARCHAR(50)
+    sizes TEXT,
+    color VARCHAR(50),
+    url VARCHAR(255)
 );
 
--- Grozs
-CREATE TABLE cart_items (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    user_id INT NOT NULL,
-    product_id INT NOT NULL,
-    quantity INT NOT NULL,
-    FOREIGN KEY (user_id) REFERENCES users(id),
-    FOREIGN KEY (product_id) REFERENCES shoes(id)
-);
-
--- Pasūtījumi
+-- Orders
 CREATE TABLE orders (
     id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT NOT NULL,
-    order_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    total_amount DOUBLE,
-    status VARCHAR(20) DEFAULT 'Processing',
+    total_price DOUBLE NOT NULL,
     FOREIGN KEY (user_id) REFERENCES users(id)
 );
 
--- Pasūtījuma preces
+-- Order_Items
 CREATE TABLE order_items (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    order_id INT NOT NULL,
-    product_id INT NOT NULL,
-    quantity INT NOT NULL,
-    price_at_purchase DOUBLE NOT NULL,
-    FOREIGN KEY (order_id) REFERENCES orders(id),
-    FOREIGN KEY (product_id) REFERENCES shoes(id)
+    user_id INT NOT NULL,
+    shoes_id INT NOT NULL,
+    shoes_size VARCHAR(10) NOT NULL,
+    price DOUBLE NOT NULL,
+    order_id INT DEFAULT NULL,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY (shoes_id) REFERENCES shoes(id),
+    FOREIGN KEY (order_id) REFERENCES orders(id) ON DELETE CASCADE
 );

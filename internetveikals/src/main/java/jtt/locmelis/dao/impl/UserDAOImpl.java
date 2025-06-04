@@ -110,5 +110,23 @@ public class UserDAOImpl implements UserDAO, UserQueries {
 
         return null;
     }
+    
+    public User getByUsername(String username) throws SQLException {
+        Connection conn = Database.getConnection();
+        PreparedStatement stmt = conn.prepareStatement("SELECT * FROM users WHERE username = ?");
+        stmt.setString(1, username);
+        ResultSet rs = stmt.executeQuery();
+        if (rs.next()) {
+            return new User(
+                rs.getInt("id"),
+                rs.getString("username"),
+                rs.getString("password"),
+                rs.getString("email"),
+                rs.getString("role"),
+                rs.getDouble("balance")
+            );
+        }
+        return null;
+    }
 
 }

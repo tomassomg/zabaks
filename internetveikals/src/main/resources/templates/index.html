@@ -115,7 +115,7 @@
 			    <li class="font" th:if="${session.loggedInUser == null}">
 			        <a th:href="@{/login}"><span class="glyphicon glyphicon-user"></span> Login</a>
 			    </li>
-			    <li class="font"><a href="#"><span class="glyphicon glyphicon-shopping-cart"></span> Grozs</a></li>
+			    <li class="font"><a th:href="@{/cart}"><span class="glyphicon glyphicon-shopping-cart"></span> Grozs</a></li>
 			</ul>
         </div>
     </div>

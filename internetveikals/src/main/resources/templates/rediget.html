@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Rediģēt kurpi</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <style>
+        form {
+            max-width: 500px;
+            margin: auto;
+            margin-top: 40px;
+        }
+        .form-group label {
+            font-family: Arial Black;
+        }
+        .btn-edit {
+            margin-top: 20px;
+            width: 100%;
+            background-color: #333;
+            color: white;
+            border: none;
+            padding: 10px;
+            font-size: 18px;
+            font-family: Arial Black;
+        }
+        .btn-edit:hover {
+            background-color: white;
+            color: #333;
+            border: 1px solid #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2 style="text-align:center; font-family: Arial Black;">Rediģēt kurpi</h2>
+        <form th:action="@{/shoes/update}" th:object="${shoe}" method="post">
+            <input type="hidden" th:field="*{id}" />
+
+            <div class="form-group">
+                <label>Nosaukums</label>
+                <input type="text" th:field="*{name}" class="form-control" required>
+            </div>
+
+            <div class="form-group">
+                <label>Zīmols</label>
+                <input type="text" th:field="*{brand}" class="form-control" required>
+            </div>
+
+            <div class="form-group">
+                <label>Cena (€)</label>
+                <input type="number" step="0.01" th:field="*{price}" class="form-control" required>
+            </div>
+
+            <div class="form-group">
+                <label>Dzimums</label>
+                <input type="text" th:field="*{gender}" class="form-control" required>
+            </div>
+
+            <div class="form-group">
+                <label>Izmēri</label>
+                <input type="text" th:field="*{sizes}" class="form-control" required>
+            </div>
+
+            <div class="form-group">
+                <label>Krāsa</label>
+                <input type="text" th:field="*{color}" class="form-control" required>
+            </div>
+
+            <div class="form-group">
+                <label>Attēla URL (bez .png)</label>
+                <input type="text" th:field="*{url}" class="form-control">
+            </div>
+
+            <button type="submit" class="btn btn-edit">Rediģēt</button>
+        </form>
+    </div>
+</body>
+</html>

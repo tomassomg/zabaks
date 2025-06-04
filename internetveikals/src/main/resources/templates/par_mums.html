@@ -75,14 +75,14 @@
 		}
     </style>
 </head>
-<body>
+<img>
 
 	
 <div class="jumbotron">
     <div class="container text-center" style="margin-top: -10px;">
         <h1 style="font-family: Arial Black;">Zābaks</h1>
         <p style="font-family: Arial; font-size: 20px;">Solis tuvāk stilam</p>
-    </div>
+	</div>
 </div>
 
 
@@ -94,61 +94,39 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-			<a class="navbar-brand" th:href="@{/add}">
-			    <img class="img-kurpe" src="/images/mini-logo.png" alt="Logo" style="height:50px; width: 70; margin-top: -15px; user-select: none; -webkit-user-drag: none;">
+			<a class="navbar-brand" href="#">
+			    <img src="/images/mini-logo.png" alt="Logo" style="height:50px; width: 70; margin-top: -15px; user-select: none; -webkit-user-drag: none;">
 			</a>
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav">
-                <li class="active" style="font-family: Arial Black; font-size: 19px;"><a href="#">Home</a></li>
+                <li class="font" style="font-family: Arial Black; font-size: 19px;"><a th:href="@{/}">Home</a></li>
                 <li class="font"><a th:href="@{/men}">Men</a></li>
                 <li class="font"><a th:href="@{/women}">Women</a></li>
                 <li class="font"><a th:href="@{/kids}">Kids</a></li>
-                <li class="font"><a th:href="@{/par/mums}">Par mums</a></li>
+                <li class="active" style="font-family: Arial Black; font-size: 19px;"><a th:href="@{/par/mums}">Par mums</a></li>
             </ul>
-            <ul class="nav navbar-nav navbar-right">
-                <li class="font"><a href="#"><span class="glyphicon glyphicon-user"></span> Jūsu profils</a></li>
-                <li class="font"><a href="#"><span class="glyphicon glyphicon-shopping-cart"></span> Grozs</a></li>
-            </ul>
+			<ul class="nav navbar-nav navbar-right">
+				<li class="font" th:if="${session.loggedInUser != null}">
+			    	<a th:href="@{/login}"><span class="glyphicon glyphicon-user"></span>
+			        	Sveicināts, <span th:text="${session.loggedInUser.username}">Lietotājs</span>
+			        </a>
+			    </li>
+			    <li class="font" th:if="${session.loggedInUser == null}">
+			        <a th:href="@{/login}"><span class="glyphicon glyphicon-user"></span> Login</a>
+			    </li>
+			    <li class="font"><a th:href="@{/cart}"><span class="glyphicon glyphicon-shopping-cart"></span> Grozs</a></li>
+			</ul>
         </div>
     </div>
 </nav>
 
-
-
-<div class="container">
-    <h2 class="font" style="font-size: 35px; margin-top: -15px; padding-bottom: 15px;">Labi piedāvājumi</h2>
-    <div th:each="shoe, iterStat : ${shoesList}">
-        <div th:if="${iterStat.index % 3 == 0}" class="row"></div>
-        <div class="col-sm-4">
-			<a class="kurpe-img" th:href="@{/login}">
-            <div class="panel panel-primary">
-                <div class="panel-heading" th:text="${shoe.name}" style="font-family: Arial Black; font-size: 20px;">Nosaukums</div>
-                <div class="panel-body">
-                    <img th:src="@{/images/{filename}(filename=${shoe.url})}" class="img-responsive" alt="Image">
-                </div>
-                <div class="panel-footer" th:text="${shoe.brand}" style="font-family: Arial Black; font-size: 14px;">Brand</div>
-                <div class="panel-footer" th:text="${shoe.price} + ' €'" style="font-family: Arial Black; font-size: 28px; font-style: italic; color: #0f7abf;">Price</div>
-                <div class="panel-footer" th:text="${shoe.gender}" style="font-family: Arial Black; font-size: 18px; color: #353534;">Gender</div>
-                <div class="panel-footer" th:text="'Available sizes: ' +  ${shoe.sizes}" style="font-family: Arial Black; font-size: 15px; font-style: italic; color: #353534;">Sizes</div>
-                <div class="panel-footer" th:text="${shoe.color}" style="font-family: Arial Black; font-size: 18px; font-style: italic; color: #353534;">Color</div>
-            </div>
-            </a>
-        </div>
-        <div th:if="${iterStat.index % 3 == 2 || iterStat.last}"></div>
-    </div>
+<div style="text-align: center;">
+	<h2 class="font" style="font-size: 40px;">Tomass Ločmelis</h2>
+	
+	<img src="/images/tomass.png" style="height: 600px; width: auto; margin-bottom: 30px;"></img>
 </div>
 
-
-
-
-<div class="top-bar">
-	<div class="text-area">
-		<div class="font" style="font-size: 50px;">NEW BALANCE 740 - say sorry later</div>
-		<button class="poga">Ieskaties</button>
-	</div>
-	<img src="/images/new-balance.png" alt="Logo" class="new-balance">
-</div>
 
 
 

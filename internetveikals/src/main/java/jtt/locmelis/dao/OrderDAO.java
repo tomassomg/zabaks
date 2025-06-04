@@ -7,5 +7,5 @@ import java.util.List;
 import jtt.locmelis.dao.base.GenericDAO;
 
 public interface OrderDAO extends GenericDAO<Order> {
-    List<Order> getByUserId(int userId) throws SQLException;
+
 }

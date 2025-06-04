@@ -11,53 +11,6 @@ import jtt.locmelis.queries.ShoesQueries;
 
 public class ShoesDAOImpl implements ShoesDAO, ShoesQueries {
 
-    public void addSize(String newSize, Shoes shoe) {
-        String sizes = shoe.getSizes();
-        if (sizes.isEmpty()) {
-            shoe.setSizes(newSize);	
-        } else {
-            shoe.setSizes(sizes + " " + newSize);
-        }
-    }
-
-    public void removeSize(String sizeToRemove, Shoes shoe) {
-        String sizes = shoe.getSizes();
-        List<String> sizeList = new ArrayList<>();
-        String[] allSizes = sizes.split(" ");
-        for (int i = 0; i < allSizes.length; i++) {
-            if (!allSizes[i].equals(sizeToRemove)) {
-                sizeList.add(allSizes[i]);
-            }
-        }
-        StringBuilder result = new StringBuilder();
-        for (int i = 0; i < sizeList.size(); i++) {
-            result.append(sizeList.get(i));
-            if (i < sizeList.size() - 1) {
-                result.append(" ");
-            }
-        }
-        shoe.setSizes(result.toString());
-    }
-    
-    public List<String> getSizesAsList(String sizes) {
-        List<String> sizeList = new ArrayList<>();
-
-        if (sizes != null && !sizes.isEmpty()) {
-            String[] sizeArray = sizes.trim().split("[,\\s]+");
-
-            for (String sizeStr : sizeArray) {
-                if (!sizeStr.isEmpty()) {
-                    sizeList.add(sizeStr);
-                }
-            }
-        }
-
-        return sizeList;
-    }
-
-
-
-
     @Override
     public int insert(Shoes shoe) throws SQLException {
         Connection conn = Database.getConnection();
@@ -68,6 +21,7 @@ public class ShoesDAOImpl implements ShoesDAO, ShoesQueries {
         stmt.setString(4, shoe.getGender());
         stmt.setString(5, shoe.getSizes());
         stmt.setString(6, shoe.getColor());
+        stmt.setString(7, shoe.getUrl());
         return stmt.executeUpdate();
     }
 
@@ -81,7 +35,8 @@ public class ShoesDAOImpl implements ShoesDAO, ShoesQueries {
         stmt.setString(4, shoe.getGender());
         stmt.setString(5, shoe.getSizes());
         stmt.setString(6, shoe.getColor());
-        stmt.setInt(7, shoe.getId());
+        stmt.setString(7, shoe.getUrl());
+        stmt.setInt(8, shoe.getId());
         return stmt.executeUpdate();
     }
 
@@ -220,6 +175,28 @@ public class ShoesDAOImpl implements ShoesDAO, ShoesQueries {
             return shoe;
         }
         return null;
+    }
+    
+    public List<String> getSizesList(Shoes shoe) {
+        List<String> sizesList = new ArrayList<>();
+        if (shoe != null && shoe.getSizes() != null) {
+            String[] sizesArray = shoe.getSizes().split(",");
+            for (String size : sizesArray) {
+                sizesList.add(size.trim());
+            }
+        }
+        return sizesList;
+    }
+
+    public List<String> getSizesAsList(Shoes shoe) {
+        List<String> sizesList = new ArrayList<>();
+        if (shoe.getSizes() != null && !shoe.getSizes().isEmpty()) {
+            String[] sizesArray = shoe.getSizes().split(",");
+            for (String size : sizesArray) {
+                sizesList.add(size.trim());
+            }
+        }
+        return sizesList;
     }
 
 }
