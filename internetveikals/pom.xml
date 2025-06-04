@@ -1,0 +1,71 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" 
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
+                             https://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>jtt.locmelis</groupId>
+  <artifactId>UserApp</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>jar</packaging>
+
+  <name>UserApp</name>
+  <description>Vienkāršs Spring Boot projekts ar User ievadi</description>
+
+  <parent>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-parent</artifactId>
+    <version>3.2.5</version>
+    <relativePath/> <!-- automātiski norāda uz parent POM -->
+  </parent>
+
+  <properties>
+    <java.version>17</java.version> <!-- vai 21, ja lieto jaunāku JDK -->
+  </properties>
+
+  <dependencies>
+    <!-- Web atbalsts -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-web</artifactId>
+    </dependency>
+
+    <!-- Thymeleaf HTML šablonu dzinējs -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-thymeleaf</artifactId>
+    </dependency>
+
+    <!-- MySQL JDBC draiveris -->
+    <dependency>
+  <groupId>mysql</groupId>
+  <artifactId>mysql-connector-java</artifactId>
+  <version>8.0.28</version>
+  <scope>runtime</scope>
+</dependency>
+
+
+
+    <!-- (neobligāts) Spring Boot DevTools, lai restartētu automātiski -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-devtools</artifactId>
+      <scope>runtime</scope>
+    </dependency>
+
+    <!-- (neobligāts) Testēšanai -->
+
+  </dependencies>
+
+  <build>
+    <plugins>
+      <!-- Spring Boot Maven plugin -->
+      <plugin>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+      </plugin>
+    </plugins>
+  </build>
+
+</project>

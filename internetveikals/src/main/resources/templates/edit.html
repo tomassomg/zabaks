@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Labot lietotāju</title>
+</head>
+<body>
+    <h1>Labot lietotāju</h1>
+    <form th:action="@{/update}" th:object="${user}" method="post">
+        <input type="hidden" th:field="*{id}" />
+        Vārds: <input type="text" th:field="*{name}" /><br/>
+        Uzvārds: <input type="text" th:field="*{email}" /><br/>
+        <button type="submit">Saglabāt</button>
+    </form>
+    <a th:href="@{/}"><button>Atpakaļ</button></a>
+</body>
+</html>

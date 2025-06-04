@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Zābaks</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <style>
+        .navbar {
+			margin-bottom: 50px;
+			border-radius: 0;
+			min-height: 80px;
+			padding-top: 15px;
+			padding-bottom: 15px;
+        }
+        .jumbotron {
+            margin-bottom: -10px;
+        }
+        footer {
+            background-color: #f2f2f2;
+            padding: 25px;
+        }
+		.font {
+			font-family: Arial Black;
+			font-size: 19px;
+		}
+		.top-bar {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			padding: 20px;
+			margin-top: 10px;
+		}
+		.text-area {
+			display: flex;
+			flex-direction: column;
+			align-items: flex-start;
+			gap: 10px;
+		}
+		.new-balance {
+			width: 1100px;
+			height: auto;
+			user-select: none;
+			-webkit-user-drag: none;
+			margin-right: -20px;
+		}
+		.poga {
+		    background-color: #333;
+		    color: white;
+		    border: 0.5mm solid #333;
+		    padding: 5px 10px;
+		    font-size: 16px;
+		    cursor: pointer;
+		    transition: all 0.3s ease;
+			font-family: Arial Black;
+			width: 180px;
+			height: 60px;
+		}
+		.poga:hover {
+		    background-color: white;
+		    color: #333;
+		    border: 0.5mm solid #333;
+		}
+		.kurpe-img {
+			text-decoration: none;
+		}
+		.kurpe-img:hover {
+			text-decoration: none;
+		}
+		.img-kurpe {
+			transform: scale(1.1);
+		}
+    </style>
+</head>
+<body>
+
+	
+<div class="jumbotron">
+    <div class="container text-center" style="margin-top: -10px;">
+        <h1 style="font-family: Arial Black;">Zābaks</h1>
+        <p style="font-family: Arial; font-size: 20px;">Solis tuvāk stilam</p>
+	</div>
+</div>
+
+
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+			<a class="navbar-brand" href="#">
+			    <img src="/images/mini-logo.png" alt="Logo" style="height:50px; width: 70; margin-top: -15px; user-select: none; -webkit-user-drag: none;">
+			</a>
+        </div>
+        <div class="collapse navbar-collapse" id="myNavbar">
+            <ul class="nav navbar-nav">
+                <li class="font"><a th:href="@{/}">Home</a></li>
+                <li class="font"><a th:href="@{/men}">Men</a></li>
+                <li class="active" style="font-family: Arial Black; font-size: 19px;"><a th:href="@{/women}">Women</a></li>
+                <li class="font"><a th:href="@{/kids}">Kids</a></li>
+                <li class="font"><a th:href="@{/par/mums}">Par mums</a></li>
+            </ul>
+			<ul class="nav navbar-nav navbar-right">
+				<li class="font" th:if="${session.loggedInUser != null}">
+			    	<a th:href="@{/login}"><span class="glyphicon glyphicon-user"></span>
+			        	Sveicināts, <span th:text="${session.loggedInUser.username}">Lietotājs</span>
+			        </a>
+			    </li>
+			    <li class="font" th:if="${session.loggedInUser == null}">
+			        <a th:href="@{/login}"><span class="glyphicon glyphicon-user"></span> Login</a>
+			    </li>
+			    <li class="font"><a href="#"><span class="glyphicon glyphicon-shopping-cart"></span> Grozs</a></li>
+			</ul>
+        </div>
+    </div>
+</nav>
+
+
+
+<div class="container">	
+    <h2 class="font" style="font-size: 35px; margin-top: -15px; padding-bottom: 15px;">Sieviešu apavi</h2>
+    <div th:each="shoe, iterStat : ${shoesList}">
+        <div th:if="${iterStat.index % 3 == 0}" class="row"></div>
+        <div class="col-sm-4">
+			<a class="kurpe-img" th:href="@{'/shoes/' + ${shoe.url}}">
+            <div class="panel panel-primary">
+                <div class="panel-heading" th:text="${shoe.name}" style="font-family: Arial Black; font-size: 20px;">Nosaukums</div>
+                <div class="panel-body">
+					<img th:src="@{'/images/' + ${shoe.url} + '.png'}" class="img-responsive" alt="Image">
+                </div>
+                <div class="panel-footer" th:text="${shoe.brand}" style="font-family: Arial Black; font-size: 14px;">Brand</div>
+                <div class="panel-footer" th:text="${shoe.price} + ' €'" style="font-family: Arial Black; font-size: 28px; font-style: italic; color: #0f7abf;">Price</div>
+                <div class="panel-footer" th:text="${shoe.gender}" style="font-family: Arial Black; font-size: 18px; color: #353534;">Gender</div>
+                <div class="panel-footer" th:text="'Available sizes: ' +  ${shoe.sizes}" style="font-family: Arial Black; font-size: 15px; font-style: italic; color: #353534;">Sizes</div>
+                <div class="panel-footer" th:text="${shoe.color}" style="font-family: Arial Black; font-size: 18px; font-style: italic; color: #353534;">Color</div>
+            </div>
+            </a>
+        </div>
+        <div th:if="${iterStat.index % 3 == 2 || iterStat.last}"></div>
+    </div>
+</div>
+
+
+<footer class="container-fluid text-center">
+    <form class="form-inline">Jautājumi:
+        <input type="email" class="form-control" size="50" placeholder="Jautājums" style="margin-left: 10px;">
+        <button class="poga" style="width: 80px; height: 40px; margin-left: 10px;">Sūtīt</button>
+    </form>
+</footer>
+
+
+</body>
+</html>
